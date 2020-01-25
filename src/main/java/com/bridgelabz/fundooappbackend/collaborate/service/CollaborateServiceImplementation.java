@@ -5,7 +5,6 @@ import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
-import com.bridgelabz.fundooappbackend.collaborate.collaboratemessage.CollaborateMessages;
 import com.bridgelabz.fundooappbackend.collaborate.dto.CollaborateDto;
 import com.bridgelabz.fundooappbackend.collaborate.model.Collaborate;
 import com.bridgelabz.fundooappbackend.collaborate.repository.CollaborateRepository;
@@ -14,11 +13,8 @@ import com.bridgelabz.fundooappbackend.note.message.Messages;
 import com.bridgelabz.fundooappbackend.note.model.Note;
 import com.bridgelabz.fundooappbackend.note.repository.NotesRepository;
 import com.bridgelabz.fundooappbackend.note.utility.TokensUtility;
-import com.bridgelabz.fundooappbackend.user.exception.custom.InputNotFoundException;
-import com.bridgelabz.fundooappbackend.user.exception.custom.NoteNOTFoundException;
 import com.bridgelabz.fundooappbackend.user.exception.custom.NoteNotFoundException;
 import com.bridgelabz.fundooappbackend.user.exception.custom.UserNotFoundException;
-import com.bridgelabz.fundooappbackend.user.message.MessageUtility;
 import com.bridgelabz.fundooappbackend.user.response.Response;
 /*********************************************************************************************************
  * @author 	:Pramila Mangesh Tawari
@@ -81,5 +77,4 @@ public class CollaborateServiceImplementation implements CollaborateService
 		
 		return new Response(Integer.parseInt(environment.getProperty("status.ok.code")),
 				environment.getProperty("status.success.collaborationdone"), environment.getProperty("success.status"));		}
-	
 }

@@ -18,6 +18,11 @@ import com.bridgelabz.fundooappbackend.user.exception.custom.ValidationException
 import com.bridgelabz.fundooappbackend.user.message.Messages;
 import com.bridgelabz.fundooappbackend.user.response.Response;
 
+/************************************************************************************************************
+ * @author 	:Pramila Mangesh Tawari
+ * Purpose	:Global Exception
+ *
+ *******************************************************************************************************/
 @ControllerAdvice
 public class Globalexception 
 {
@@ -92,6 +97,4 @@ public class Globalexception
 	{
 		return new ResponseEntity<Response>(new Response(Messages.BAD_REQUEST, e.getMessage(), "Try Again"), HttpStatus.INTERNAL_SERVER_ERROR);
 	}
-	
-	
 }

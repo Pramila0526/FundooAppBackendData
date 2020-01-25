@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.bridgelabz.fundooappbackend.note.dto.NoteDto;
-import com.bridgelabz.fundooappbackend.note.service.NoteServiceImplementation;
+import com.bridgelabz.fundooappbackend.note.service.NoteService;
 import com.bridgelabz.fundooappbackend.user.message.Messages;
 import com.bridgelabz.fundooappbackend.user.response.Response;
 /*********************************************************************************************************
@@ -28,7 +28,7 @@ import com.bridgelabz.fundooappbackend.user.response.Response;
 public class NoteController 
 {
       @Autowired
-      NoteServiceImplementation notesServiceImplementation;
+      NoteService notesServiceImplementation;
 	
       // Testing API
       @GetMapping("/demoo")
@@ -39,7 +39,7 @@ public class NoteController
       
       // Adding New Note
     @PostMapping("/addnewnote")
-  	public ResponseEntity<Response> addNewNote(@RequestBody NoteDto noteDto,@RequestHeader String token)
+  	public ResponseEntity<Response> addNewNote(@RequestBody NoteDto noteDto,@RequestHeader String token) throws Exception
   	{
   		return new ResponseEntity<Response>(notesServiceImplementation.addNewNote(noteDto,token), HttpStatus.OK); // give response for user 200
   	}
@@ -66,8 +66,8 @@ public class NoteController
 	}
     
  // Getting all Notes
-    @GetMapping("/findnote/{id}")
-	public ResponseEntity<Response> findUserNote(@Valid @PathVariable int id,@RequestHeader String token) 
+    @GetMapping("/findnotebyid/{id}")
+	public ResponseEntity<Response> findUserNoteById(@Valid @PathVariable int id,@RequestHeader String token) 
 	{
   		return new ResponseEntity<Response>(notesServiceImplementation.findNote(id, token), HttpStatus.OK); // give response for user 200
 	}

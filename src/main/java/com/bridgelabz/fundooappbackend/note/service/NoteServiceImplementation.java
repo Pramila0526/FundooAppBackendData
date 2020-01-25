@@ -1,12 +1,16 @@
 package com.bridgelabz.fundooappbackend.note.service;
 import java.util.List;
 import java.util.stream.Collectors;
+
 import javax.validation.Valid;
+
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Service;
+
+import com.bridgelabz.fundooappbackend.elastic.service.ElasticService;
 import com.bridgelabz.fundooappbackend.note.dto.NoteDto;
 import com.bridgelabz.fundooappbackend.note.message.Messages;
 import com.bridgelabz.fundooappbackend.note.model.Note;
@@ -43,12 +47,16 @@ public class NoteServiceImplementation implements NoteService {
 
 	@Autowired
 	private Environment environment;
+	
+	@Autowired
+	private ElasticService elasticService;
 
 	/**
 	 * @return Function to add a New Note
+	 * @throws Exception 
 	 *
 	 *************************************************************************************************/
-	public Response addNewNote(NoteDto noteDto, String token) {
+	public Response addNewNote(NoteDto noteDto, String token) throws Exception {
 
 		if (noteDto.getTitle().isEmpty() || noteDto.getDescription().isEmpty()
 				|| (noteDto.getTitle().isEmpty() && noteDto.getDescription().isEmpty())) {
@@ -68,7 +76,7 @@ public class NoteServiceImplementation implements NoteService {
 		note.setUser(user);
 
 		notesRepository.save(note); // Storing Users Data in Database
-
+		elasticService.createNote(note);
 		return new Response(Integer.parseInt(environment.getProperty("status.ok.code")),
 				environment.getProperty("status.success.notecreated"), environment.getProperty("success.status"));
 	}

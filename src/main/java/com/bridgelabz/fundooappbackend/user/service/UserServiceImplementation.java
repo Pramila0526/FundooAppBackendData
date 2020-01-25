@@ -121,11 +121,13 @@ public class UserServiceImplementation implements UserService {
 		{ // if userid is found validate should be true
 			user.setValidate(true);
 			repository.save(user);
-			return new Response(Integer.parseInt(environment.getProperty("status.ok.code") ),environment.getProperty("status.success.emailverified"),environment.getProperty("success.status"));
+			return new Response(Integer.parseInt(environment.getProperty("status.ok.code") ),
+					environment.getProperty("status.success.emailverified"),environment.getProperty("success.status"));
 		}
 		else 
 		{
-			return new Response(Integer.parseInt(environment.getProperty("status.badrequest.code") ),environment.getProperty("status.success.emailnotverified"),environment.getProperty("failure.status"));
+			return new Response(Integer.parseInt(environment.getProperty("status.badrequest.code") ),
+					environment.getProperty("status.success.emailnotverified"),environment.getProperty("failure.status"));
 		}
 	}
 

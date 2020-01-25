@@ -1,9 +1,10 @@
 package com.bridgelabz.fundooappbackend.note.service;
 import javax.validation.Valid;
+import org.springframework.stereotype.Service;
 import com.bridgelabz.fundooappbackend.note.dto.LabelDto;
-import com.bridgelabz.fundooappbackend.note.dto.UpdateLabelDto;
 import com.bridgelabz.fundooappbackend.user.response.Response;
 
+@Service
 public interface LabelService {
 	public Response addLabel(LabelDto labelDto,String token);
 	public Response updateLabel(@Valid int id,LabelDto updateLabelDto, String token);
