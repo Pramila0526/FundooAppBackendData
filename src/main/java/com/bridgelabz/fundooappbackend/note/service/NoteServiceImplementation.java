@@ -154,13 +154,11 @@ public class NoteServiceImplementation implements NoteService {
 			throw new UserNotFoundException(Messages.USER_NOT_EXISTING);
 		}
 		
-		List<Note> note = notesRepository.findAll().stream().filter(e -> e.getUser().getId() == user.getId())
-				.collect(Collectors.toList());
-
-		System.out.println(note);
-	//	return note;
+		//System.out.println(note);
+		//	return note;
 		return new Response(Integer.parseInt(environment.getProperty("status.ok.code")),
-				environment.getProperty("status.success.notedeleted"), note);
+			environment.getProperty("status.success.allnotes"),  notesRepository.findAll());
+		
 	}
 	/**
 	 * @return Find a note of one particulat user by id
@@ -272,6 +270,107 @@ public class NoteServiceImplementation implements NoteService {
 		return list;
 	}
 
+/**
+ * @return Function Pin and Unpin the Notes
+ *
+ *************************************************************************************************/
+    public Response pinAndUnpin(@Valid int id,String token) {
+		
+		String userToken = tokenUtility.getUserToken(token);
+				
+		if (userToken.isEmpty()) {
+			throw new TokenException(Messages.INVALID_TOKEN);
+		}
+		
+		Note note = notesRepository.findById(id);
+		
+		if (note == null) {
+			throw new NoteNotFoundException(Messages.NOTE_NOT_FOUND);
+		}
+		
+		if(note.isPin() == false)
+		{
+			note.setPin(true);
+			notesRepository.save(note);
+			return new Response(Integer.parseInt(environment.getProperty("status.ok.code")),
+					environment.getProperty("status.success.pin"), environment.getProperty("success.status"));
+		}
+		else 
+		{
+			note.setPin(false);
+			notesRepository.save(note);
+			return new Response(Integer.parseInt(environment.getProperty("status.ok.code")),
+					environment.getProperty("status.success.unpin"), environment.getProperty("success.status"));
+		}
+	}
+    
+/**
+ * @return Function archieve the Notes
+ *
+ *************************************************************************************************/
+ public Response archieve(@Valid int id,String token) {
+		
+		String userToken = tokenUtility.getUserToken(token);
+				
+		if (userToken.isEmpty()) {
+			throw new TokenException(Messages.INVALID_TOKEN);
+		}
+		
+		Note note = notesRepository.findById(id);
+		
+		if (note == null) {
+			throw new NoteNotFoundException(Messages.NOTE_NOT_FOUND);
+		}
+		
+		if(note.isArchieve() == false)
+		{
+			note.setArchieve(true);
+			notesRepository.save(note);
+			return new Response(Integer.parseInt(environment.getProperty("status.ok.code")),
+					environment.getProperty("status.success.archieve"), environment.getProperty("success.status"));
+		}
+		else 
+		{
+			note.setArchieve(false);
+			notesRepository.save(note);
+			return new Response(Integer.parseInt(environment.getProperty("status.ok.code")),
+					environment.getProperty("status.success.disarchieve"), environment.getProperty("success.status"));
+		}
+	}
+ 
+ /**
+  * @return Function Trash the Notes
+  *
+  *************************************************************************************************/
+ public Response trash(@Valid int id,String token) {
+		
+		String userToken = tokenUtility.getUserToken(token);
+				
+		if (userToken.isEmpty()) {
+			throw new TokenException(Messages.INVALID_TOKEN);
+		}
+		
+		Note note = notesRepository.findById(id);
+		
+		if (note == null) {
+			throw new NoteNotFoundException(Messages.NOTE_NOT_FOUND);
+		}
+		
+		if(note.isTrash() == false)
+		{
+			note.setTrash(true);
+			notesRepository.save(note);
+			return new Response(Integer.parseInt(environment.getProperty("status.ok.code")),
+					environment.getProperty("status.success.trash"), environment.getProperty("success.status"));
+		}
+		else 
+		{
+			note.setTrash(false);
+			notesRepository.save(note);
+			return new Response(Integer.parseInt(environment.getProperty("status.ok.code")),
+					environment.getProperty("status.success.distrash"), environment.getProperty("success.status"));
+		}
+	}
 }
 
 /*

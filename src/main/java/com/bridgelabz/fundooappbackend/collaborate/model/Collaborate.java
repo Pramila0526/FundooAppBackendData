@@ -12,56 +12,69 @@ import javax.validation.constraints.NotNull;
  ***********************************************************************************************************/
 @Entity
 public class Collaborate implements Serializable
-{
+{	
+	
 	private static final long serialVersionUID = 1L;
-
+	
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	private int id;
-	
+	@GeneratedValue(strategy=GenerationType.AUTO)
+	private int collaboratorId;;
 	@NotNull
-	private int noteId;
-	
+	private String receiverMail;
 	@NotNull
-	private String SenderMail;
-
-	public int getId() {
-		return id;
-	}
-
-	public void setId(int id) {
-		this.id = id;
-	}
-
-	public int getNoteId() {
-		return noteId;
-	}
-
-	public void setNoteId(int noteId) {
-		this.noteId = noteId;
-	}
-
-	public String getSenderMail() {
-		return SenderMail;
-	}
-
-	public void setSenderMail(String senderMail) {
-		SenderMail = senderMail;
-	}
-
-	public Collaborate(int id, @NotNull int noteId, @NotNull String senderMail) {
-		super();
-		this.id = id;
-		this.noteId = noteId;
-		SenderMail = senderMail;
-	}
-
-	public Collaborate() {
-		super();
+	private String senderMail;
+	@NotNull
+	private int noteID;
+	
+	public Collaborate()
+	{
+		
 	}
 
 	@Override
 	public String toString() {
-		return "Collaborate [id=" + id + ", noteId=" + noteId + ", SenderMail=" + SenderMail + "]";
-	}	
+		return "Collaborate [collaboratorId=" + collaboratorId + ", receiverMail=" + receiverMail + ", senderMail="
+				+ senderMail + ", noteID=" + noteID + "]";
+	}
+
+	public int getCollaboratorId() {
+		return collaboratorId;
+	}
+
+	public void setCollaboratorId(int collaboratorId) {
+		this.collaboratorId = collaboratorId;
+	}
+
+	public String getReceiverMail() {
+		return receiverMail;
+	}
+
+	public void setReceiverMail(String receiverMail) {
+		this.receiverMail = receiverMail;
+	}
+
+	public String getSenderMail() {
+		return senderMail;
+	}
+
+	public void setSenderMail(String senderMail) {
+		this.senderMail = senderMail;
+	}
+
+	public int getNoteID() {
+		return noteID;
+	}
+
+	public void setNoteID(int noteID) {
+		this.noteID = noteID;
+	}
+
+	public Collaborate(int collaboratorId, @NotNull String receiverMail, @NotNull String senderMail,
+			@NotNull int noteID) {
+		super();
+		this.collaboratorId = collaboratorId;
+		this.receiverMail = receiverMail;
+		this.senderMail = senderMail;
+		this.noteID = noteID;
+	}
 }

@@ -43,6 +43,8 @@ public class Messages {
 		//  For users
 		public static final String USER_NOT_EXISTING = "User Doesn't Exists";
 		
+		public static final String USER_NOT_FOUND="User Not Found";
+		
 	//  For collaboration
 			public static final String PING = "Note Pinged!";
 			

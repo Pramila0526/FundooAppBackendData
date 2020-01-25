@@ -12,7 +12,7 @@ public class CollaborateMessages {
 	public static final String INVALID_TOKEN = "Invalid Token**";
 	
 		// Status Code
-		public static final String OK = "200";
+		public static final int OK = 200;
 		
 		public static final String BAD_REQUEST = "400";
 		

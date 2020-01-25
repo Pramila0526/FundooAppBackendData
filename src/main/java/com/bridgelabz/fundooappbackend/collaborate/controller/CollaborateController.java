@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import com.bridgelabz.fundooappbackend.collaborate.dto.CollaborateDto;
 import com.bridgelabz.fundooappbackend.collaborate.service.CollaborateServiceImplementation;
-import com.bridgelabz.fundooappbackend.note.response.Responses;
+import com.bridgelabz.fundooappbackend.user.response.Response;
 /*********************************************************************************************************
  * @author 	:Pramila Mangesh Tawari
  * Purpose	:Collaborate Controller For Generating API's
@@ -32,8 +32,8 @@ public class CollaborateController {
      
      // Collaboration
     @PostMapping("/collaborate")
- 	public ResponseEntity<Responses> collaborate(@RequestBody CollaborateDto collaboratorDto,@RequestHeader String token)
+ 	public ResponseEntity<Response> collaborate(@RequestBody CollaborateDto collaboratorDto,@RequestHeader String token)
  	{
- 		return new ResponseEntity<Responses>(collaborateServiceImplementation.Collaborate(collaboratorDto, token), HttpStatus.OK); // give response for user 200
+ 		return new ResponseEntity<Response>(collaborateServiceImplementation.Collaborate(collaboratorDto, token), HttpStatus.OK); // give response for user 200
  	}
 }

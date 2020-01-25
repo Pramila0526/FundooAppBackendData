@@ -8,7 +8,6 @@ import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Service;
 import com.bridgelabz.fundooappbackend.note.dto.LabelDto;
-import com.bridgelabz.fundooappbackend.note.dto.UpdateLabelDto;
 import com.bridgelabz.fundooappbackend.note.message.Messages;
 import com.bridgelabz.fundooappbackend.note.model.Label;
 import com.bridgelabz.fundooappbackend.note.repository.LabelRepository;
@@ -78,7 +77,7 @@ public class LabelServiceImplementation implements LabelService {
 *     @return  Function to upadte Label
 *
 *************************************************************************************************/
-	public Response updateLabel(@Valid int id,UpdateLabelDto updateLabelDto, String token) 
+	public Response updateLabel(@Valid int id,LabelDto updateLabelDto, String token) 
 	{
 		if(updateLabelDto.getName().isEmpty())
 		{
@@ -96,17 +95,11 @@ public class LabelServiceImplementation implements LabelService {
 			throw new UserNotFoundException(Messages.USER_NOT_EXISTING);
 		}
 		
-		Label label1 = labelRepository.findById(id);
-		
-		if(label1 ==  null)
-		{
-			return new Response(Integer.parseInt(environment.getProperty("status.ok.code")),
-					environment.getProperty("status.labelnotfound"), environment.getProperty("failure.status"));	
-		}
+		labelRepository.findById(id);
 		
 		label.setUser(user);
 		
-		label = labelRepository.save(label);
+		labelRepository.save(label);
 		
 		return new Response(Integer.parseInt(environment.getProperty("status.ok.code")),
 				environment.getProperty("status.success.labelupdated"), environment.getProperty("success.status"));	

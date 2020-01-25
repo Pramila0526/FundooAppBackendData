@@ -5,6 +5,7 @@ package com.bridgelabz.fundooappbackend.note.dto;
  *
  *********************************************************************************************************/
 public class LabelDto {
+	
 	private String name;
 
 	public String getName() {

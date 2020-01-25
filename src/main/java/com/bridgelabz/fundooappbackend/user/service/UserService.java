@@ -1,13 +1,14 @@
 package com.bridgelabz.fundooappbackend.user.service;
 import java.util.List;
 
+import javax.validation.Valid;
+
 import com.bridgelabz.fundooappbackend.user.dto.ForgotPasswordDto;
 import com.bridgelabz.fundooappbackend.user.dto.LoginDto;
 import com.bridgelabz.fundooappbackend.user.dto.RegistrationDto;
 import com.bridgelabz.fundooappbackend.user.dto.ResetPasswordDto;
 import com.bridgelabz.fundooappbackend.user.model.User;
 import com.bridgelabz.fundooappbackend.user.response.Response;
-
 
 /**********************************************************************************************************
  * @author :Pramila Tawari 
@@ -27,5 +28,5 @@ public interface UserService
 	
 	public List<User> showAllUsers(String token);  // To display All the users
 	
-	public Response findUser(String token);    // For the particular user
+	public Response findUser(@Valid int id,String token);    // For the particular user
 }

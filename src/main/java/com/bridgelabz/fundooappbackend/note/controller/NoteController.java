@@ -1,4 +1,6 @@
 package com.bridgelabz.fundooappbackend.note.controller;
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -58,31 +60,56 @@ public class NoteController
     
         // Getting all Notes
     @GetMapping("/getallnotes")
-	public Response getAllNotes(@RequestHeader String token) 
+	public ResponseEntity<Response> getAllNotes(@RequestHeader String token) 
 	{
-		return new Response(Messages.OK,null,notesServiceImplementation.getAllNotes(token));
+  		return new ResponseEntity<Response>(notesServiceImplementation.getAllNotes(token), HttpStatus.OK); // give response for user 200
+	}
+    
+ // Getting all Notes
+    @GetMapping("/findnote/{id}")
+	public ResponseEntity<Response> findUserNote(@Valid @PathVariable int id,@RequestHeader String token) 
+	{
+  		return new ResponseEntity<Response>(notesServiceImplementation.findNote(id, token), HttpStatus.OK); // give response for user 200
 	}
     
     // Sorting notes By title
     @GetMapping("/sortbytitle")
 	public Response sortByTitle(@RequestHeader String token) 
 	{
-		return new Response(Messages.OK,null,notesServiceImplementation.sortByTitle(token));
+		return new Response(Messages.OK,"Sorted Notes By Title",notesServiceImplementation.sortByTitle(token));
 	}
     
     // Sorting notes By Description
     @GetMapping("/sortbydescription")
 	public Response sortByDescription(@RequestHeader String token) 
 	{
-		return new Response(Messages.OK,null,notesServiceImplementation.sortByDescription(token));
+		return new Response(Messages.OK,"Sorted Notes By Description",notesServiceImplementation.sortByDescription(token));
 	}
     
  // Sorting notes By Date
     @GetMapping("/sortbydate")
 	public Response sortByDate(@RequestHeader String token) 
 	{
-		return new Response(Messages.OK,null,notesServiceImplementation.sortByDate(token));
+		return new Response(Messages.OK,"Sorted Notes By Date",notesServiceImplementation.sortByDate(token));
 	}
+    
+    @PutMapping("/pinunpin/{id}")
+   	public ResponseEntity<Response> pinUnpin(@Valid @PathVariable int id,@RequestHeader String token) 
+   	{
+     		return new ResponseEntity<Response>(notesServiceImplementation.pinAndUnpin(id, token), HttpStatus.OK); // give response for user 200
+   	}
+    
+    @PutMapping("/archieve/{id}")
+   	public ResponseEntity<Response> archieve(@Valid @PathVariable int id,@RequestHeader String token) 
+   	{
+     		return new ResponseEntity<Response>(notesServiceImplementation.archieve(id, token), HttpStatus.OK); // give response for user 200
+   	}
+    
+    @PutMapping("/trash/{id}")
+   	public ResponseEntity<Response> trash(@Valid @PathVariable int id,@RequestHeader String token) 
+   	{
+     		return new ResponseEntity<Response>(notesServiceImplementation.trash(id, token), HttpStatus.OK); // give response for user 200
+   	}
 }
 
 

@@ -1,12 +1,15 @@
 package com.bridgelabz.fundooappbackend.user.exception.global;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.mail.MailParseException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.MissingServletRequestParameterException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import com.bridgelabz.fundooappbackend.user.exception.custom.ForgotPasswordException;
+import com.bridgelabz.fundooappbackend.user.exception.custom.InputNotFoundException;
 import com.bridgelabz.fundooappbackend.user.exception.custom.LoginException;
+import com.bridgelabz.fundooappbackend.user.exception.custom.NoteNotFoundException;
 import com.bridgelabz.fundooappbackend.user.exception.custom.RegistrationExcepton;
 import com.bridgelabz.fundooappbackend.user.exception.custom.TokenException;
 import com.bridgelabz.fundooappbackend.user.exception.custom.UserNotFoundException;
@@ -71,4 +74,24 @@ public class Globalexception
 	{
 		return new ResponseEntity<Response>(new Response(Messages.BAD_REQUEST, e.getMessage(), "Try Again"), HttpStatus.INTERNAL_SERVER_ERROR);
 	}
+	
+	@ExceptionHandler(InputNotFoundException.class)
+	public ResponseEntity<Response> inputNotFoundException(Exception e) 
+	{
+		return new ResponseEntity<Response>(new Response(Messages.BAD_REQUEST, e.getMessage(), "Try Again"), HttpStatus.INTERNAL_SERVER_ERROR);
+	}
+	
+	@ExceptionHandler(MailParseException.class)
+	public ResponseEntity<Response> MailParseException(Exception e) 
+	{
+		return new ResponseEntity<Response>(new Response(Messages.BAD_REQUEST, e.getMessage(), "Try Again"), HttpStatus.INTERNAL_SERVER_ERROR);
+	}
+	
+	@ExceptionHandler(NoteNotFoundException.class)
+	public ResponseEntity<Response> noteNotFoundException(Exception e) 
+	{
+		return new ResponseEntity<Response>(new Response(Messages.BAD_REQUEST, e.getMessage(), "Try Again"), HttpStatus.INTERNAL_SERVER_ERROR);
+	}
+	
+	
 }

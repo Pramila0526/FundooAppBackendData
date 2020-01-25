@@ -1,5 +1,6 @@
 package com.bridgelabz.fundooappbackend.user.service;
 import java.util.List;
+import javax.validation.Valid;
 import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -15,8 +16,10 @@ import com.bridgelabz.fundooappbackend.user.dto.LoginDto;
 import com.bridgelabz.fundooappbackend.user.dto.RegistrationDto;
 import com.bridgelabz.fundooappbackend.user.dto.ResetPasswordDto;
 import com.bridgelabz.fundooappbackend.user.exception.custom.ForgotPasswordException;
+import com.bridgelabz.fundooappbackend.user.exception.custom.InputNotFoundException;
 import com.bridgelabz.fundooappbackend.user.exception.custom.RegistrationExcepton;
 import com.bridgelabz.fundooappbackend.user.exception.custom.TokenException;
+import com.bridgelabz.fundooappbackend.user.exception.custom.UserNotFoundException;
 import com.bridgelabz.fundooappbackend.user.exception.custom.ValidateUserException;
 import com.bridgelabz.fundooappbackend.user.message.MessageUtility;
 import com.bridgelabz.fundooappbackend.user.message.Messages;
@@ -28,7 +31,7 @@ import com.bridgelabz.fundooappbackend.user.utility.TokenUtility;
 /**********************************************************************************************************
  * @author :Pramila Mangesh Tawari 
  * Purpose :Service Implementation Class for
- *          implementing actual Flow/Logic
+ *           implementing actual Flow/Logic
  *
  *********************************************************************************************************/
 
@@ -132,6 +135,9 @@ public class UserServiceImplementation implements UserService {
  *******************************************************************************************************/
 	public Response loginUser(LoginDto logindto) 
 	{
+		if(logindto.getEmail().isEmpty()) {
+			throw new InputNotFoundException(Messages.ENTER_EMAIL);
+		}
 		User user = repository.findByEmail(logindto.getEmail()); // find email present or not
 		System.out.println(user);
 		if (user == null)
@@ -168,6 +174,7 @@ public class UserServiceImplementation implements UserService {
 		User user = repository.findByEmail(forgetPasswordDto.getEmail()); // find by user email id
 
 		System.out.println(user);
+		
 		if (user == null)
 		{ 
 			logger.info("Null Content");
@@ -182,10 +189,9 @@ public class UserServiceImplementation implements UserService {
 					.send(MessageUtility.verifyUserMail(forgetPasswordDto.getEmail(), token, Messages.VERIFY_MAIL)); // send
 			logger.info("Token Sent");																									// email
 		}
-		return new Response(Integer.parseInt(environment.getProperty("status.ok.code") ),environment.getProperty("status.success.emailverified"),environment.getProperty("success.status"));
+		return new Response(Integer.parseInt(environment.getProperty("status.ok.code") ),environment.getProperty("status.success.tokensent"),environment.getProperty("success.status"));
 	}
 
-	
 /**
  * @return Set Password Method :- Changing the Password
  *
@@ -217,7 +223,7 @@ public class UserServiceImplementation implements UserService {
  * @return Find User :- Particular user's data by the token
  *
  ********************************************************************************************************/
-	public Response findUser(String token) 
+	public Response findUser(@Valid int id,String token) 
 	{
 		String email = tokenutility.getUserToken(token);
 		
@@ -228,6 +234,12 @@ public class UserServiceImplementation implements UserService {
 		}
 		
 		User user = repository.findByEmail(email);
+		
+		if (user == null)
+		{ 
+			logger.info("Null Content");
+			throw new UserNotFoundException(Messages.USER_NOT_EXISTING);
+		}
 		
 		return new Response(Integer.parseInt(environment.getProperty("status.ok.code") ),environment.getProperty("status.success.userfound"),user);
 	}
@@ -240,6 +252,21 @@ public class UserServiceImplementation implements UserService {
 	{
 		System.out.println("check");
 		logger.info("All USers");
+        String email = tokenutility.getUserToken(token);
+		
+		if (email.isEmpty())
+		{
+			logger.info("Email Doesn't Exists");
+			throw new TokenException(Messages.INVALID_TOKEN);
+		}
+		
+		User user = repository.findByEmail(email);
+		
+		if (user == null)
+		{ 
+			logger.info("Null Content");
+			throw new UserNotFoundException(Messages.USER_NOT_EXISTING);
+		}
 		return repository.findAll(); // show all user details in JPA
 	}
 	

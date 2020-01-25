@@ -45,7 +45,7 @@ public class LabelController {
 	 
 	 // Updateing Label
 	 @PutMapping("/updatelabel/{id}")
-	  	public ResponseEntity<Response> updateLabel(@Valid int id,@RequestBody UpdateLabelDto updateLabelDto,@RequestHeader String token)
+	  	public ResponseEntity<Response> updateLabel(@Valid @PathVariable int id,@RequestBody LabelDto updateLabelDto,@RequestHeader String token)
 	  	{
 	  		return new ResponseEntity<Response>(labelServiceImplementation.updateLabel(id,updateLabelDto, token), HttpStatus.OK); // give response for user 200
 	  	}

@@ -54,6 +54,12 @@ public class Note implements Serializable {
 	@Temporal(TemporalType.TIMESTAMP)
 	@UpdateTimestamp
 	private Date noteUpdatedDate;
+	
+	private boolean pin;
+	
+	private boolean archieve;
+
+	private boolean trash;
 
 	public int getId() {
 		return id;
@@ -103,8 +109,40 @@ public class Note implements Serializable {
 		this.noteRegistrationDate = noteRegistrationDate;
 	}
 
+	public Date getNoteUpdatedDate() {
+		return noteUpdatedDate;
+	}
+
+	public void setNoteUpdatedDate(Date noteUpdatedDate) {
+		this.noteUpdatedDate = noteUpdatedDate;
+	}
+
+	public boolean isPin() {
+		return pin;
+	}
+
+	public void setPin(boolean pin) {
+		this.pin = pin;
+	}
+
+	public boolean isArchieve() {
+		return archieve;
+	}
+
+	public void setArchieve(boolean archieve) {
+		this.archieve = archieve;
+	}
+
+	public boolean isTrash() {
+		return trash;
+	}
+
+	public void setTrash(boolean trash) {
+		this.trash = trash;
+	}
+
 	public Note(int id, @NotNull String title, @NotNull String description, User user, List<Label> labels,
-			@NotNull Date noteRegistrationDate) {
+			Date noteRegistrationDate, Date noteUpdatedDate, boolean pin, boolean archieve, boolean trash) {
 		super();
 		this.id = id;
 		this.title = title;
@@ -112,6 +150,10 @@ public class Note implements Serializable {
 		this.user = user;
 		this.labels = labels;
 		this.noteRegistrationDate = noteRegistrationDate;
+		this.noteUpdatedDate = noteUpdatedDate;
+		this.pin = pin;
+		this.archieve = archieve;
+		this.trash = trash;
 	}
 
 	public Note() {
@@ -122,7 +164,10 @@ public class Note implements Serializable {
 	@Override
 	public String toString() {
 		return "Note [id=" + id + ", title=" + title + ", description=" + description + ", user=" + user + ", labels="
-				+ labels + ", noteRegistrationDate=" + noteRegistrationDate + "]";
+				+ labels + ", noteRegistrationDate=" + noteRegistrationDate + ", noteUpdatedDate=" + noteUpdatedDate
+				+ ", pin=" + pin + ", archieve=" + archieve + ", trash=" + trash + "]";
 	}
 
+	
+	
 }

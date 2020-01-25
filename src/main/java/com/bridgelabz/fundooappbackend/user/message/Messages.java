@@ -16,7 +16,7 @@ public class Messages {
 	
 	public static final String INVALID_EMAIL = "Invalid Username Or Empty Field*";
 	
-	public static final String ENTER_EMAIL = "Please Enter Mail ID*";
+	public static final String ENTER_EMAIL = "Please Enter Email ID First*";
 	
 	public static final String LINK_NOT_ACTIVE = "Activate your account link that sent to your email id";
 	
@@ -32,19 +32,19 @@ public class Messages {
 
 	public static final String USER_UPDATE_SUCCESSFULLY = "User Successfully Updated!!";
 	
-	public static final String USER_NOT_EXISTING = "User Doesn't Exists";
+	public static final String USER_NOT_EXISTING = "User Doesn't Exists or Invalid Email";
 	
 	public static final String PASSWORD_CHANGED_SUCCESSFULLY = "Password Successfully Changed!!";
 	
 	public static final String PASSWORD_NOT_CHANGED_SUCCESSFULLY = "Password Not Changed**";
 	
-	public static final String MAIL_SENT = "Token has been Sent to your Mail";
+	//public static final String MAIL_SENT = "Token has been Sent to your Mail";
 	
 	public static final String PASSWORD_NOT_MATCHING = "Both password should be matched, Please Try Again";
 	
 	public static final String INVALID_TOKEN = "Invalid Token**";
 	
-	public static final String VERIFY_MAIL= "Verified";
+	public static final String VERIFY_MAIL= "Email Verified";
 	
 	// Status Code
 	public static final int OK = 200;

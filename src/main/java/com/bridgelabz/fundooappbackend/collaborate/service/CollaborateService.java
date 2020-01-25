@@ -6,7 +6,7 @@ import com.bridgelabz.fundooappbackend.user.response.Response;
  * Purpose	:Collaborate Service
  *
  ***********************************************************************************************************/
-public interface CollaborateService
+public interface CollaborateService 
 {
-	public Response Collaborate(CollaborateDto collaboratorDto , String token );
+	public Response Collaborate(CollaborateDto collaboratorDto, String token );
 }
