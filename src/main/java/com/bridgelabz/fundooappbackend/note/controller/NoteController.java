@@ -1,6 +1,5 @@
 package com.bridgelabz.fundooappbackend.note.controller;
 import javax.validation.Valid;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,7 +12,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
 import com.bridgelabz.fundooappbackend.note.dto.NoteDto;
 import com.bridgelabz.fundooappbackend.note.service.NoteService;
 import com.bridgelabz.fundooappbackend.user.message.Messages;
@@ -65,7 +63,7 @@ public class NoteController
   		return new ResponseEntity<Response>(notesServiceImplementation.getAllNotes(token), HttpStatus.OK); // give response for user 200
 	}
     
- // Getting all Notes
+    // Getting all Notes
     @GetMapping("/findnotebyid/{id}")
 	public ResponseEntity<Response> findUserNoteById(@Valid @PathVariable int id,@RequestHeader String token) 
 	{
@@ -74,23 +72,23 @@ public class NoteController
     
     // Sorting notes By title
     @GetMapping("/sortbytitle")
-	public Response sortByTitle(@RequestHeader String token) 
+	public ResponseEntity<Response> sortByTitle(@RequestHeader String token) 
 	{
-		return new Response(Messages.OK,"Sorted Notes By Title",notesServiceImplementation.sortByTitle(token));
+  		return new ResponseEntity<Response>(notesServiceImplementation.sortByTitle(token), HttpStatus.OK); // give response for user 200
 	}
     
     // Sorting notes By Description
     @GetMapping("/sortbydescription")
-	public Response sortByDescription(@RequestHeader String token) 
+	public ResponseEntity<Response> sortByDescription(@RequestHeader String token) 
 	{
-		return new Response(Messages.OK,"Sorted Notes By Description",notesServiceImplementation.sortByDescription(token));
+  		return new ResponseEntity<Response>(notesServiceImplementation.sortByDescription(token), HttpStatus.OK); // give response for user 200
 	}
     
  // Sorting notes By Date
     @GetMapping("/sortbydate")
-	public Response sortByDate(@RequestHeader String token) 
+	public ResponseEntity<Response> sortByDate(@RequestHeader String token) 
 	{
-		return new Response(Messages.OK,"Sorted Notes By Date",notesServiceImplementation.sortByDate(token));
+  		return new ResponseEntity<Response>(notesServiceImplementation.sortByDate(token), HttpStatus.OK); // give response for user 200
 	}
     
     @PutMapping("/pinunpin/{id}")
@@ -110,13 +108,19 @@ public class NoteController
    	{
      		return new ResponseEntity<Response>(notesServiceImplementation.trash(id, token), HttpStatus.OK); // give response for user 200
    	}
+   
 }
 
 
 
 
 
-
+//
+//@PutMapping("showusersnotes")
+//	public Response showusersnotes(@RequestHeader String token) 
+//	{
+//	return new Response(Messages.OK,"Sorted Notes By Description",notesServiceImplementation.showUserNotes( token));
+//	}
 
 /*
  * //Finding a note

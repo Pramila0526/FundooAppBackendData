@@ -22,13 +22,13 @@ public interface NoteService {
 //	public Response findNote(int id,String token);
 //	public List<Note> showUserNotes(int id,String token);
 	public Response getAllNotes(@RequestHeader String token);
-	public List<Note> sortByDescription(String token);
+	public Response sortByDescription(String token);
 	public Response findNote(int id, String token);
-	public List<Note> sortByTitle(String token);
-	public List<Note> sortByDate(String token);
+	public Response sortByTitle(String token);
+	public Response sortByDate(String token);
 	public Response pinAndUnpin(@Valid int id,String token);
 	public Response archieve(@Valid int id,String token);
 	public Response trash(@Valid int id,String token);
-
+	//public List<Note> showUserNotes(String token);
 
 }
